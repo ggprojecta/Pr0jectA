@@ -153,9 +153,11 @@
 
   <header>
     <p class="pix muted" style="font-size:0.75rem; margin:0;">✦ audizioni aperte ✦</p>
-    <img src="project-a-logo.png" alt="Project A — Next Girl Group" class="logo" />
+    <h1 style="margin:0.5rem 0 0;"><img class="logo" src="project-a-logo.png" alt="Project A — Next Girl Group"></h1>
     <p style="font-size:1.5rem; margin:1rem 0 0;">Project A cerca la prossima star. Da ovunque nel mondo.</p>
     <button type="button" id="starBtn" class="blink pix" style="margin-top:1rem; font-size:0.75rem; background:none; border:none; color:inherit; text-decoration:underline dotted; text-underline-offset:4px; cursor:pointer;">▶ STAR QUALITY RICHIESTA ◀</button>
+    <br>
+    <button type="button" id="rulesBtn" class="pix" style="margin-top:0.5rem; font-size:0.75rem; background:none; border:none; color:inherit; text-decoration:underline dotted; text-underline-offset:4px; cursor:pointer;">✦ REGOLE VIDEO ✦</button>
     <br>
     <a href="#candidati" class="pixel-btn" style="margin-top:1.5rem;">CANDIDATI ORA</a>
   </header>
@@ -210,6 +212,7 @@
           </div>
 
           <input required type="url" class="input" name="video_url" placeholder="Link video audizione (YouTube, Drive...)">
+          <p class="center" style="font-size:0.8rem; margin:-0.9rem 0 0;">I video devono rispettare le <button type="button" id="rulesBtn2" class="pix" style="background:none; border:none; padding:0; font-size:0.8rem; color:var(--primary); text-decoration:underline dotted; text-underline-offset:3px; cursor:pointer;">regole video ✦</button></p>
 
           <div>
             <label class="pix">ALTRI TALENTI</label>
@@ -234,6 +237,21 @@
     </section>
   </div>
 
+  <div id="rulesModal" class="modal-bg">
+    <div class="pixel-box" style="max-width:30rem; background:var(--card); padding:1.5rem;">
+      <h2 style="font-size:1.9rem; color:var(--primary); margin:0; text-align:center;">✦ Regole video ✦</h2>
+      <p style="margin:1rem 0 0;">Prima di registrare, leggi bene: ogni video deve rispettare queste regole.</p>
+      <ul style="margin:1rem 0 0; padding-left:1.25rem; line-height:1.8;">
+        <li>✦ <strong>Canto:</strong> 1 minuto, un'unica ripresa, senza editing né filtri.</li>
+        <li>✦ <strong>Ballo:</strong> 1 minuto, un'unica ripresa, senza editing né filtri.</li>
+        <li>✦ <strong>All Rounder:</strong> un solo video in cui canti e balli insieme (stesse regole).</li>
+        <li>✦ <strong>Altri talenti</strong> (songwriting, basi, coreografia…): nessun limite di tempo, ma mai oltre i 2 minuti.</li>
+        <li>✦ Carica i video su YouTube o Drive e incolla il link nel modulo.</li>
+      </ul>
+      <div style="text-align:center;"><button type="button" id="rulesClose" class="pixel-btn" style="margin-top:1.5rem;">HO CAPITO ✦</button></div>
+    </div>
+  </div>
+
   <div id="starModal" class="modal-bg hidden">
     <div class="pixel-box center" style="max-width:28rem; background:var(--card); padding:1.5rem;">
       <h2 style="font-size:1.9rem; color:var(--primary); margin:0;">✦ Star Quality ✦</h2>
@@ -252,6 +270,13 @@
 </main>
 
 <script>
+  // Regole video (la schedina si apre appena entri nel sito)
+  var rulesModal = document.getElementById('rulesModal');
+  document.getElementById('rulesBtn').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
+  document.getElementById('rulesBtn2').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
+  document.getElementById('rulesClose').addEventListener('click', function () { rulesModal.classList.add('hidden'); });
+  rulesModal.addEventListener('click', function (e) { if (e.target === rulesModal) rulesModal.classList.add('hidden'); });
+
   // Pop-up "Star Quality"
   var starModal = document.getElementById('starModal');
   document.getElementById('starBtn').addEventListener('click', function () { starModal.classList.remove('hidden'); });
@@ -310,4 +335,4 @@
   });
 </script>
 </body>
-          </html>
+  </html>
