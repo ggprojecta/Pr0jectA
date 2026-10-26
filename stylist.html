@@ -241,32 +241,5 @@
 
     <footer>© 2026 Project A · Next Girl Group ✦</footer>
   </div>
-
-  <script>
-    document.getElementById('form').addEventListener('submit', function (e) {
-      const data = Object.fromEntries(new FormData(this).entries());
-      const roles = Array.from(this.querySelectorAll('input[name="ruolo"]:checked')).map(el => el.value);
-      if (!roles.length) { alert('Scegli almeno un ruolo.'); return; }
-      const body = [
-        'CANDIDATURA CREATIVE TEAM — PROJECT A',
-        'Ruoli: ' + roles.join(', '),
-        'Nome: ' + (data['Nome'] || ''),
-        'Email: ' + (data['Email'] || ''),
-        'Luogo: ' + (data['Luogo'] || ''),
-        'Social: ' + (data['Social'] || ''),
-        'Portfolio: ' + (data['Portfolio'] || ''),
-        'Progetto aggiuntivo: ' + (data['Progetto aggiuntivo'] || ''),
-        'ESPERIENZA',
-        data['Esperienza'] || '',
-        'CONCEPT PER PROJECT A',
-        data['Concept'] || '',
-        'DISPONIBILITÀ E SPOSTAMENTI',
-        data['Disponibilità'] || ''
-      ].join('\n');
-        + encodeURIComponent('Project A — Candidatura Creative Team')
-        + '&body=' + encodeURIComponent(body);
-      document.getElementById('prepared').hidden = false;
-    });
-  </script>
 </body>
   </html>
