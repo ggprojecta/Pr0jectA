@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <a href="https://ggprojecta.github.io/Pr0jectA/" class="text-purple-400 underline font-medium">
+  <a href="https://ggprojecta.github.io/Pr0jectA/" class="text-purple-400 underline font-large">
     ← Torna alla Home
 </a>
   <meta charset="UTF-8">
@@ -117,7 +117,6 @@
 <body>
   <div class="wrap">
     <nav class="topnav">
-      <a class="backlink pix" href="project-a.html">← Audizioni performer</a>
       <span class="tag pix">✦ Creative Team ✦</span>
     </nav>
 
@@ -198,6 +197,46 @@
         <button class="btn" type="submit" style="width:100%; justify-content:center;">✦ Prepara candidatura</button>
         <p class="prepared" id="prepared" hidden>✦ Email preparata: la candidatura sarà inviata solo quando premi «Invia» nella tua app di posta.</p>
       </form>
+      <form action="https://formsubmit.co/ggprojecta.00@gmail.com" method="POST" class="space-y-4">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="Nuova Candidatura CREATIVE STAFF (Stylist/MUA)!">
+
+    <div>
+        <label class="block text-sm font-semibold mb-1 text-purple-300">Nome e Cognome *</label>
+        <input type="text" name="Nome" required placeholder="Il tuo nome" class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="block text-sm font-semibold mb-1 text-purple-300">Età *</label>
+            <input type="number" name="Età" required placeholder="es. 20" class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
+        </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1 text-purple-300">Città / Zona *</label>
+            <input type="text" name="Città" required placeholder="es. Monza / Milano" class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
+        </div>
+    </div>
+
+    <div>
+        <label class="block text-sm font-semibold mb-1 text-purple-300">Ruolo Principale *</label>
+        <select name="Ruolo" required class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
+            <option value="">Seleziona un ruolo...</option>
+            <option value="Stylist / Fashion">Stylist / Fashion Designer</option>
+            <option value="MUA">Make-Up Artist (MUA)</option>
+            <option value="Hair Stylist">Hair Stylist</option>
+            <option value="All Rounder Staff">Tuttofare / Content & Style</option>
+        </select>
+    </div>
+
+    <div>
+        <label class="block text-sm font-semibold mb-1 text-purple-300">Link Portfolio o Profilo Social *</label>
+        <input type="url" name="Portfolio_Social" required placeholder="Link Instagram, TikTok o Drive con i tuoi lavori" class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
+    </div>
+
+    <button type="submit" class="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 font-bold rounded-xl text-white shadow-lg hover:opacity-95 transition-all">
+        INVIA CANDIDATURA CREATIVE STAFF ✦
+    </button>
+</form>
     </section>
 
     <footer>© 2026 Project A · Next Girl Group ✦</footer>
