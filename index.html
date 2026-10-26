@@ -334,31 +334,6 @@
       extraLink.classList.toggle('hidden', extras.length === 0);
     });
   });
-
-  // Invio: apre la mail precompilata verso ggprojecta.00@gmail.com
-  document.getElementById('applyForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!role) { document.getElementById('formErr').classList.remove('hidden'); return; }
-    var f = new FormData(e.target);
-    var lines = [
-      'Nome: ' + f.get('name'),
-      'Età: ' + f.get('age'),
-      'Paese / città: ' + f.get('location'),
-      'Email: ' + f.get('email'),
-      'Social: ' + (f.get('socials') || '-'),
-      'Lingue: ' + (f.get('languages') || '-'),
-      'Ruolo: ' + role,
-      'Video audizione: ' + f.get('video_url'),
-      'Altri talenti: ' + (extras.length ? extras.join(', ') : '-'),
-      'Link extra: ' + (f.get('extra_link') || '-'),
-      '',
-      'Cosa mi rende una star:',
-      f.get('why_star')
-    ];
-    var subject = encodeURIComponent('Candidatura Project A — ' + f.get('name') + ' (' + role + ')');
-    var body = encodeURIComponent(lines.join('\n'));
-    window.location.href = 'mailto:ggprojecta.00@gmail.com?subject=' + subject + '&body=' + body;
-  });
 </script>
   <script data-goatcounter="https://giorgia.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
