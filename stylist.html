@@ -244,7 +244,6 @@
 
   <script>
     document.getElementById('form').addEventListener('submit', function (e) {
-      e.preventDefault();
       const data = Object.fromEntries(new FormData(this).entries());
       const roles = Array.from(this.querySelectorAll('input[name="ruolo"]:checked')).map(el => el.value);
       if (!roles.length) { alert('Scegli almeno un ruolo.'); return; }
@@ -264,7 +263,6 @@
         'DISPONIBILITÀ E SPOSTAMENTI',
         data['Disponibilità'] || ''
       ].join('\n');
-      window.location.href = 'mailto:ggprojecta.00@gmail.com?subject='
         + encodeURIComponent('Project A — Candidatura Creative Team')
         + '&body=' + encodeURIComponent(body);
       document.getElementById('prepared').hidden = false;
