@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project A — Audizioni Creative Team</title>
+  <meta name="description" content="Candidature Project A per stylist abbigliamento, hair stylist e makeup artist. Y2K, streetwear e look dei primi anni 2000.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: oklch(0.96 0.03 340);
+      --bg-soft: oklch(0.93 0.05 340);
+      --card: oklch(0.99 0.01 340);
+      --primary: oklch(0.66 0.26 355);
+      --primary-soft: oklch(0.85 0.12 350);
+      --secondary: oklch(0.88 0.09 350);
+      --ink: oklch(0.25 0.05 350);
+      --muted: oklch(0.5 0.04 350);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, oklch(0.93 0.08 350 / .8), transparent 40%),
+        radial-gradient(circle at 85% 85%, oklch(0.9 0.1 355 / .6), transparent 45%),
+        var(--bg);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+    .wrap { max-width: 56rem; margin: 0 auto; padding: 2rem 1.25rem; }
+    .pix {
+      font-family: 'Archivo Black', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    h1, h2, h3 { font-family: 'Shrikhand', cursive; font-weight: 400; color: var(--primary); }
+    h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); }
+    h2 { font-size: clamp(1.6rem, 4vw, 2rem); margin-bottom: .75rem; }
+    a { color: inherit; }
+    .topnav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .75rem; padding-bottom: 1rem; }
+    .backlink { text-decoration: none; font-weight: 700; }
+    .backlink:hover { color: var(--primary); }
+    .tag { font-size: .75rem; color: var(--muted); }
+    header.hero { text-align: center; padding: 1.5rem 0 2rem; }
+    .logo { width: 100%; max-width: 20rem; margin: 0 auto; display: block; }
+    .hero .kicker { margin-top: 1rem; font-size: .8rem; color: var(--primary); }
+    .hero h1 { margin-top: .5rem; }
+    .hero p.lead { max-width: 32rem; margin: 1.25rem auto 0; font-size: 1.1rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--primary); color: oklch(0.99 0.01 340);
+      font-family: 'Archivo Black', sans-serif; text-transform: uppercase;
+      letter-spacing: .06em; font-size: .85rem;
+      padding: .9rem 1.5rem; margin-top: 1.5rem;
+      border: none; border-radius: 999px; cursor: pointer;
+      box-shadow: 0 6px 0 var(--primary-soft);
+      transition: transform .15s ease, box-shadow .15s ease;
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--primary-soft); }
+    section { border-top: 2px solid var(--secondary); padding: 2rem 0; }
+    .section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .75rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0; }
+    .chip {
+      background: var(--card); border: 2px solid var(--secondary);
+      border-radius: 999px; padding: .5rem 1rem;
+      font-family: 'Archivo Black', sans-serif; text-transform: uppercase;
+      font-size: .7rem; letter-spacing: .06em;
+    }
+    .grid3 { display: grid; gap: 1rem; margin-top: 1.5rem; }
+    @media (min-width: 720px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      background: var(--card); border: 2px solid var(--secondary);
+      border-radius: 1rem; padding: 1.25rem;
+      box-shadow: 0 4px 14px oklch(0.75 0.12 355 / .25);
+    }
+    .card .label { font-size: .7rem; color: var(--muted); }
+    .card h3 { font-size: 1.4rem; margin: .6rem 0; }
+    .card p { font-size: .9rem; }
+    .muted { color: var(--muted); font-size: .9rem; }
+    form { margin-top: 1.5rem; display: grid; gap: 1.25rem; }
+    .grid2 { display: grid; gap: 1rem; }
+    @media (min-width: 640px) { .grid2 { grid-template-columns: repeat(2, 1fr); } }
+    label { display: block; font-size: .9rem; }
+    label > span { display: block; margin-bottom: .5rem; font-weight: 500; }
+    input, textarea {
+      width: 100%; min-width: 0;
+      border: 2px solid var(--secondary); background: var(--card);
+      border-radius: .9rem; padding: .75rem 1rem;
+      font: inherit; color: inherit; outline: none;
+    }
+    input:focus, textarea:focus { border-color: var(--primary); }
+    textarea { resize: vertical; }
+    fieldset { border: none; }
+    legend { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; font-size: .75rem; letter-spacing: .08em; margin-bottom: .75rem; }
+    .roles { display: grid; gap: .75rem; }
+    @media (min-width: 640px) { .roles { grid-template-columns: repeat(3, 1fr); } }
+    .role {
+      display: flex; align-items: center; gap: .75rem;
+      border: 2px solid var(--secondary); background: var(--card);
+      border-radius: .75rem; padding: .75rem 1rem; cursor: pointer; font-size: .9rem;
+    }
+    .role:has(input:checked) { background: var(--bg-soft); }
+    .role input { width: 1rem; height: 1rem; accent-color: var(--primary); }
+    .submit-note { font-size: .85rem; color: var(--muted); }
+    .prepared { text-align: center; font-size: .9rem; }
+    footer { text-align: center; padding: 1.5rem 0 2.5rem; font-size: .75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="topnav">
+      <a class="backlink pix" href="project-a.html">← Audizioni performer</a>
+      <span class="tag pix">✦ Creative Team ✦</span>
+    </nav>
+
+    <header class="hero">
+      <img src="project-a-logo.png" alt="Project A — Next Girl Group" class="logo">
+      <p class="kicker pix">Fashion · Hair · Makeup</p>
+      <h1>Creative Team Auditions</h1>
+      <p class="lead">Cerchiamo chi sa trasformare una visione in un look. Il tuo stile, la nostra identità.</p>
+      <a class="btn" href="#candidatura">Candidati al team ↗</a>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <h2>✦ Gli stili che cerchiamo</h2>
+        <span class="tag pix">Inspired by the 2000s</span>
+      </div>
+      <div class="chips">
+        <span class="chip">Y2K</span>
+        <span class="chip">Streetwear</span>
+        <span class="chip">Primi anni 2000</span>
+        <span class="chip">Hip Hop</span>
+        <span class="chip">R&amp;B</span>
+        <span class="chip">Pop culture</span>
+      </div>
+      <p>L’energia dei videoclip dei primi anni 2000, lo streetwear e i dettagli Y2K: outfit, capelli e makeup devono parlare la stessa lingua, senza perdere la personalità di chi li indossa.</p>
+      <div class="grid3">
+        <article class="card">
+          <p class="label pix">01 / Outfit</p>
+          <h3>Clothes stylist</h3>
+          <p>Denim, cargo, tute, baby tee, minigonne, accessori statement e silhouette oversize. Streetwear con un’anima Y2K.</p>
+        </article>
+        <article class="card">
+          <p class="label pix">02 / Hair</p>
+          <h3>Hair stylist</h3>
+          <p>Treccine, space buns, ciocche frontali, mollettine e styling sleek: capelli ispirati ai primi anni 2000, con personalità.</p>
+        </article>
+        <article class="card">
+          <p class="label pix">03 / Makeup</p>
+          <h3>MUA</h3>
+          <p>Gloss, shimmer, dettagli metallici, eyeliner e colori pop. Makeup Y2K che racconta l’identità di ogni membro.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>✦ La tua visione per Project A</h2>
+      <p>Mostraci i tuoi lavori: outfit, acconciature, makeup o moodboard. Raccontaci il tuo contributo e come interpreteresti il nostro stile per il gruppo.</p>
+      <p class="muted" style="margin-top:.5rem">Condividi link accessibili, senza richieste di autorizzazione.</p>
+    </section>
+
+    <section id="candidatura">
+      <h2>✦ Entra nel creative team</h2>
+      <form id="form">
+        <div class="grid2">
+          <label><span>Nome *</span><input name="Nome" type="text" required maxlength="200" placeholder="Nome / nome d’arte"></label>
+          <label><span>Email *</span><input name="Email" type="email" required maxlength="200"></label>
+          <label><span>Luogo *</span><input name="Luogo" type="text" required maxlength="200" placeholder="Paese / città"></label>
+          <label><span>Social</span><input name="Social" type="text" maxlength="200" placeholder="Instagram / TikTok"></label>
+        </div>
+
+        <fieldset>
+          <legend>Ruolo / ruoli *</legend>
+          <div class="roles">
+            <label class="role"><input type="checkbox" name="ruolo" value="Clothes stylist"> Clothes stylist</label>
+            <label class="role"><input type="checkbox" name="ruolo" value="Hair stylist"> Hair stylist</label>
+            <label class="role"><input type="checkbox" name="ruolo" value="MUA"> MUA</label>
+          </div>
+        </fieldset>
+
+        <label><span>Link portfolio *</span><input name="Portfolio" type="url" required maxlength="1000" placeholder="https://…"></label>
+        <label><span>Link progetto / video aggiuntivo</span><input name="Progetto aggiuntivo" type="url" maxlength="1000" placeholder="https://…"></label>
+
+        <label><span>La tua esperienza *</span><textarea name="Esperienza" required rows="3" maxlength="3000" placeholder="Raccontaci il tuo percorso e i progetti a cui hai lavorato."></textarea></label>
+        <label><span>Il tuo concept Y2K / streetwear per Project A *</span><textarea name="Concept" required rows="3" maxlength="3000" placeholder="Come immagini outfit, capelli o makeup per il gruppo?"></textarea></label>
+        <label><span>Disponibilità e spostamenti *</span><textarea name="Disponibilità" required rows="3" maxlength="3000" placeholder="Quando sei disponibile e dove puoi lavorare?"></textarea></label>
+
+        <p class="submit-note">La candidatura apre un’email per ggprojecta.00@gmail.com: inviala dalla tua app di posta per completare l’audizione.</p>
+        <button class="btn" type="submit" style="width:100%; justify-content:center;">✦ Prepara candidatura</button>
+        <p class="prepared" id="prepared" hidden>✦ Email preparata: la candidatura sarà inviata solo quando premi «Invia» nella tua app di posta.</p>
+      </form>
+    </section>
+
+    <footer>© 2026 Project A · Next Girl Group ✦</footer>
+  </div>
+
+  <script>
+    document.getElementById('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(this).entries());
+      const roles = Array.from(this.querySelectorAll('input[name="ruolo"]:checked')).map(el => el.value);
+      if (!roles.length) { alert('Scegli almeno un ruolo.'); return; }
+      const body = [
+        'CANDIDATURA CREATIVE TEAM — PROJECT A',
+        'Ruoli: ' + roles.join(', '),
+        'Nome: ' + (data['Nome'] || ''),
+        'Email: ' + (data['Email'] || ''),
+        'Luogo: ' + (data['Luogo'] || ''),
+        'Social: ' + (data['Social'] || ''),
+        'Portfolio: ' + (data['Portfolio'] || ''),
+        'Progetto aggiuntivo: ' + (data['Progetto aggiuntivo'] || ''),
+        'ESPERIENZA',
+        data['Esperienza'] || '',
+        'CONCEPT PER PROJECT A',
+        data['Concept'] || '',
+        'DISPONIBILITÀ E SPOSTAMENTI',
+        data['Disponibilità'] || ''
+      ].join('\n');
+      window.location.href = 'mailto:ggprojecta.00@gmail.com?subject='
+        + encodeURIComponent('Project A — Candidatura Creative Team')
+        + '&body=' + encodeURIComponent(body);
+      document.getElementById('prepared').hidden = false;
+    });
+  </script>
+</body>
+  </html>
