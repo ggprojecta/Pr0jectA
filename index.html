@@ -219,7 +219,7 @@
   <input type="hidden" name="_subject" value="Nuova Candidatura Project A - PERFORMER!">
   <input type="hidden" name="role" id="roleInput" value="">
           <div class="grid2">
-            <input required class="email" name="email" placeholder="Nome d'arte / nome">
+            <input required class="input" name="name" placeholder="Nome d'arte / nome">
             <input required type="number" min="14" class="input" name="age" placeholder="Età">
             <input required class="input" name="location" placeholder="Paese / città">
             <input required type="email" class="input" name="email" placeholder="Email">
@@ -272,7 +272,7 @@
         <li>✦ <strong>Altri talenti</strong> (songwriting, basi, coreografia…): nessun limite di tempo, ma mai oltre i 2 minuti.</li>
         <li>✦ Carica i video su YouTube o Drive e incolla il link nel modulo.</li>
       </ul>
-      <div style="text-align:center;"><button type="button" id="closeRulesBtn" class="pixel-btn" style="margin-top:1.5rem;">HO CAPITO ✦</button></div>
+      <div style="text-align:center;"><button type="button" id="rulesClose" class="pixel-btn" style="margin-top:1.5rem;">HO CAPITO ✦</button></div>
     </div>
   </div>
 
@@ -294,41 +294,21 @@
 </main>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Seleziona tutti i pulsanti presenti nella pagina
-    const buttons = document.querySelectorAll('button');
-    
-    buttons.forEach(btn => {
-      // Controlla se il pulsante è un pulsante di chiusura (es. "HO CAPITO")
-      if (btn.innerText.toUpperCase().includes('HO CAPITO')) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Trova il riquadro del pop-up risalendo la struttura HTML e lo nasconde completamente
-          const modalBox = btn.closest('div[style*="background"], div[class*="modal"], div[class*="popup"], div[style*="position"]') || btn.parentElement.parentElement;
-          
-          if (modalBox) {
-            modalBox.style.display = 'none';
-          }
-        });
-      }
-    });
-  });
-
-  // --- 2. GESTIONE SELEZIONE RUOLO ---
   let role = '';
+
+  // 1. Gestione selezione pulsanti Ruolo (Canto / Ballo / ecc.)
   document.querySelectorAll('.pick').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.pick').forEach(b => b.classList.remove('selected'));
       this.classList.add('selected');
       role = this.getAttribute('data-role');
-      document.getElementById('roleInput').value = role;
+      document.getElementById('roleInput').value = role; // Salva il ruolo per l'invio
     });
   });
 
-  // --- 3. INVIO EMAIL FORM E SCHERMATA CARINA ---
+  // 2. Invio del Form in background a FormSubmit
   document.getElementById('applyForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Impedisce l'apertura della pagina esterna di FormSubmit
 
     const form = e.target;
     const formData = new FormData(form);
@@ -342,8 +322,11 @@
     })
     .then(response => {
       if (response.ok) {
+        // Nasconde il form
         document.getElementById('candidati').style.display = 'none';
         
+        // MOSTRA LA TUA SCHERMATA CARINA:
+        // Cerca l'elemento con id "prepared" (o con id "successMsg") e lo rende visibile
         const successSection = document.getElementById('prepared') || document.getElementById('successMsg');
         if (successSection) {
           successSection.hidden = false;
@@ -359,8 +342,46 @@
       alert('Errore di connessione. Riprova più tardi!');
     });
   });
+  // Regole video (la schedina si apre appena entri nel sito)
+  var rulesModal = document.getElementById('rulesModal');
+  document.getElementById('rulesBtn').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
+  document.getElementById('rulesBtn2').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
+  document.getElementById('rulesClose').addEventListener('click', function () { rulesModal.classList.add('hidden'); });
+  rulesModal.addEventListener('click', function (e) { if (e.target === rulesModal) rulesModal.classList.add('hidden'); });
+
+  // Pop-up "Star Quality"
+  var starModal = document.getElementById('starModal');
+  document.getElementById('starBtn').addEventListener('click', function () { starModal.classList.remove('hidden'); });
+  document.getElementById('starClose').addEventListener('click', function () { starModal.classList.add('hidden'); });
+  starModal.addEventListener('click', function (e) { if (e.target === starModal) starModal.classList.add('hidden'); });
+
+  // Scelta del ruolo
+  var role = '';
+  var submitBtn = document.getElementById('submitBtn');
+  document.querySelectorAll('[data-role]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      role = btn.getAttribute('data-role');
+      document.querySelectorAll('[data-role]').forEach(function (b) { b.classList.remove('on'); });
+      btn.classList.add('on');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'INVIA CANDIDATURA';
+    });
+  });
+
+  // Altri talenti (selezione multipla)
+  var extras = [];
+  var extraLink = document.getElementById('extraLink');
+  document.querySelectorAll('[data-extra]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var val = btn.getAttribute('data-extra');
+      var i = extras.indexOf(val);
+      if (i >= 0) { extras.splice(i, 1); btn.classList.remove('on'); btn.textContent = '☐ ' + val; }
+      else { extras.push(val); btn.classList.add('on'); btn.textContent = '☑ ' + val; }
+      extraLink.classList.toggle('hidden', extras.length === 0);
+    });
+  });
 </script>
   <script data-goatcounter="https://giorgia.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
-  </html>
+    </html>
