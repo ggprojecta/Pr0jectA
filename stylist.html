@@ -192,18 +192,14 @@
         <label><span>La tua esperienza *</span><textarea name="Esperienza" required rows="3" maxlength="3000" placeholder="Raccontaci il tuo percorso e i progetti a cui hai lavorato."></textarea></label>
         <label><span>Il tuo concept Y2K / streetwear per Project A *</span><textarea name="Concept" required rows="3" maxlength="3000" placeholder="Come immagini outfit, capelli o makeup per il gruppo?"></textarea></label>
         <label><span>Disponibilità e spostamenti *</span><textarea name="Disponibilità" required rows="3" maxlength="3000" placeholder="Quando sei disponibile e dove puoi lavorare?"></textarea></label>
-
-        <p class="submit-note">La candidatura apre un’email per ggprojecta.00@gmail.com: inviala dalla tua app di posta per completare l’audizione.</p>
-        <button class="btn" type="submit" style="width:100%; justify-content:center;">✦ Prepara candidatura</button>
-        <p class="prepared" id="prepared" hidden>✦ Email preparata: la candidatura sarà inviata solo quando premi «Invia» nella tua app di posta.</p>
       </form>
       <form action="https://formsubmit.co/ggprojecta.00@gmail.com" method="POST" class="space-y-4">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_subject" value="Nuova Candidatura CREATIVE STAFF (Stylist/MUA)!">
 
     <div>
-        <label class="block text-sm font-semibold mb-1 text-purple-300">Nome e Cognome *</label>
-        <input type="text" name="Nome" required placeholder="Il tuo nome" class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
+        <label class="block text-sm font-semibold mb-1 text-purple-300">Email *</label>
+        <input type="email" name="email" required placeholder="La tua email" class="w-full p-3 rounded-lg bg-zinc-900 border border-purple-900/50 text-white focus:outline-none focus:border-pink-500">
     </div>
 
     <div class="grid grid-cols-2 gap-4">
@@ -237,9 +233,47 @@
         INVIA CANDIDATURA CREATIVE STAFF ✦
     </button>
 </form>
+      <div id="successMsg" style="display:none;" class="pixel-box">
+  <p class="prepared">✦ Candidatura inviata con successo! Ti risponderemo al più presto. ✦</p>
+</div>
     </section>
 
     <footer>© 2026 Project A · Next Girl Group ✦</footer>
   </div>
+  <script>
+  document.getElementById('applyForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Impedisce l'apertura della pagina grigia di FormSubmit
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Nasconde il form e mostra il tuo messaggio carino!
+        form.style.display = 'none';
+        
+        const msg = document.getElementById('successMsg') || document.getElementById('prepared');
+        if (msg) {
+          msg.style.display = 'block';
+          msg.hidden = false;
+        } else {
+          alert('✦ Candidatura inviata con successo! ✦');
+        }
+      } else {
+        alert('Si è verificato un errore durante l\'invio. Riprova!');
+      }
+    })
+    .catch(error => {
+      alert('Errore di connessione. Riprova più tardi!');
+    });
+  });
+</script>
 </body>
   </html>
