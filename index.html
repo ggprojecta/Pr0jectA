@@ -295,26 +295,27 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Cerca il pulsante HO CAPITO (sia per testo che per tag)
+    // Seleziona tutti i pulsanti presenti nella pagina
     const buttons = document.querySelectorAll('button');
+    
     buttons.forEach(btn => {
-      if (btn.innerText.includes('HO CAPITO')) {
+      // Controlla se il pulsante è un pulsante di chiusura (es. "HO CAPITO")
+      if (btn.innerText.toUpperCase().includes('HO CAPITO')) {
         btn.addEventListener('click', function(e) {
           e.preventDefault();
-          // Trova il pop-up e lo chiude
-          const popup = btn.closest('div[style*="position"], .modal, .popup, div[class*="fixed"]');
-          if (popup) {
-            popup.style.display = 'none';
-          } else {
-            // Se non trova il contenitore, nasconde il genitore diretto
-            btn.parentElement.style.display = 'none';
+          
+          // Trova il riquadro del pop-up risalendo la struttura HTML e lo nasconde completamente
+          const modalBox = btn.closest('div[style*="background"], div[class*="modal"], div[class*="popup"], div[style*="position"]') || btn.parentElement.parentElement;
+          
+          if (modalBox) {
+            modalBox.style.display = 'none';
           }
         });
       }
     });
   });
 
-  // --- 2. GESTIONE SELEZIONE RUOLO (Canto / Ballo / ecc.) ---
+  // --- 2. GESTIONE SELEZIONE RUOLO ---
   let role = '';
   document.querySelectorAll('.pick').forEach(btn => {
     btn.addEventListener('click', function() {
