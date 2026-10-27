@@ -294,21 +294,40 @@
 </main>
 
 <script>
-  let role = '';
+  document.addEventListener('DOMContentLoaded', function() {
+    // Cerca il pulsante HO CAPITO (sia per testo che per tag)
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+      if (btn.innerText.includes('HO CAPITO')) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          // Trova il pop-up e lo chiude
+          const popup = btn.closest('div[style*="position"], .modal, .popup, div[class*="fixed"]');
+          if (popup) {
+            popup.style.display = 'none';
+          } else {
+            // Se non trova il contenitore, nasconde il genitore diretto
+            btn.parentElement.style.display = 'none';
+          }
+        });
+      }
+    });
+  });
 
-  // 1. Gestione selezione pulsanti Ruolo (Canto / Ballo / ecc.)
+  // --- 2. GESTIONE SELEZIONE RUOLO (Canto / Ballo / ecc.) ---
+  let role = '';
   document.querySelectorAll('.pick').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.pick').forEach(b => b.classList.remove('selected'));
       this.classList.add('selected');
       role = this.getAttribute('data-role');
-      document.getElementById('roleInput').value = role; // Salva il ruolo per l'invio
+      document.getElementById('roleInput').value = role;
     });
   });
 
-  // 2. Invio del Form in background a FormSubmit
+  // --- 3. INVIO EMAIL FORM E SCHERMATA CARINA ---
   document.getElementById('applyForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Impedisce l'apertura della pagina esterna di FormSubmit
+    e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
@@ -322,11 +341,8 @@
     })
     .then(response => {
       if (response.ok) {
-        // Nasconde il form
         document.getElementById('candidati').style.display = 'none';
         
-        // MOSTRA LA TUA SCHERMATA CARINA:
-        // Cerca l'elemento con id "prepared" (o con id "successMsg") e lo rende visibile
         const successSection = document.getElementById('prepared') || document.getElementById('successMsg');
         if (successSection) {
           successSection.hidden = false;
@@ -340,44 +356,6 @@
     })
     .catch(error => {
       alert('Errore di connessione. Riprova più tardi!');
-    });
-  });
-  // Regole video (la schedina si apre appena entri nel sito)
-  var rulesModal = document.getElementById('rulesModal');
-  document.getElementById('rulesBtn').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
-  document.getElementById('rulesBtn2').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
-  document.getElementById('rulesClose').addEventListener('click', function () { rulesModal.classList.add('hidden'); });
-  rulesModal.addEventListener('click', function (e) { if (e.target === rulesModal) rulesModal.classList.add('hidden'); });
-
-  // Pop-up "Star Quality"
-  var starModal = document.getElementById('starModal');
-  document.getElementById('starBtn').addEventListener('click', function () { starModal.classList.remove('hidden'); });
-  document.getElementById('starClose').addEventListener('click', function () { starModal.classList.add('hidden'); });
-  starModal.addEventListener('click', function (e) { if (e.target === starModal) starModal.classList.add('hidden'); });
-
-  // Scelta del ruolo
-  var role = '';
-  var submitBtn = document.getElementById('submitBtn');
-  document.querySelectorAll('[data-role]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      role = btn.getAttribute('data-role');
-      document.querySelectorAll('[data-role]').forEach(function (b) { b.classList.remove('on'); });
-      btn.classList.add('on');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'INVIA CANDIDATURA';
-    });
-  });
-
-  // Altri talenti (selezione multipla)
-  var extras = [];
-  var extraLink = document.getElementById('extraLink');
-  document.querySelectorAll('[data-extra]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var val = btn.getAttribute('data-extra');
-      var i = extras.indexOf(val);
-      if (i >= 0) { extras.splice(i, 1); btn.classList.remove('on'); btn.textContent = '☐ ' + val; }
-      else { extras.push(val); btn.classList.add('on'); btn.textContent = '☑ ' + val; }
-      extraLink.classList.toggle('hidden', extras.length === 0);
     });
   });
 </script>
