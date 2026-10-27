@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <!-- Titolo del sito che compare nei risultati di ricerca -->
-  <title>Project A - Audizioni Next Girl Group</title>
-  <!-- Descrizione SEO per Google -->
+  <title>Project A - Audizioni Next Girl Group
   <meta name="description" content="Candidati per il nuovo gruppo globale: canto, ballo, all rounder.">
-  <!-- Gli altri collegamenti già presenti nel tuo codice -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Archivo+Black&family=Space+Grotesk">
@@ -218,8 +215,9 @@
       <div class="win-bar"><span>✦</span><span>candidati</span></div>
       <div class="pad">
         <form id="applyForm" action="https://formsubmit.co/ggprojecta.00@gmail.com" method="POST">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_subject" value="Nuova Candidatura Project A - PERFORMER!">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="Nuova Candidatura Project A - PERFORMER!">
+  <input type="hidden" name="role" id="roleInput" value="">
           <div class="grid2">
             <input required class="input" name="name" placeholder="Nome d'arte / nome">
             <input required type="number" min="14" class="input" name="age" placeholder="Età">
@@ -296,6 +294,54 @@
 </main>
 
 <script>
+  let role = '';
+
+  // 1. Gestione selezione pulsanti Ruolo (Canto / Ballo / ecc.)
+  document.querySelectorAll('.pick').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.pick').forEach(b => b.classList.remove('selected'));
+      this.classList.add('selected');
+      role = this.getAttribute('data-role');
+      document.getElementById('roleInput').value = role; // Salva il ruolo per l'invio
+    });
+  });
+
+  // 2. Invio del Form in background a FormSubmit
+  document.getElementById('applyForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Impedisce l'apertura della pagina esterna di FormSubmit
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Nasconde il form
+        document.getElementById('candidati').style.display = 'none';
+        
+        // MOSTRA LA TUA SCHERMATA CARINA:
+        // Cerca l'elemento con id "prepared" (o con id "successMsg") e lo rende visibile
+        const successSection = document.getElementById('prepared') || document.getElementById('successMsg');
+        if (successSection) {
+          successSection.hidden = false;
+          successSection.style.display = 'block';
+        } else {
+          alert('✨ Candidatura inviata con successo! ✨');
+        }
+      } else {
+        alert('Si è verificato un errore durante l\'invio. Riprova!');
+      }
+    })
+    .catch(error => {
+      alert('Errore di connessione. Riprova più tardi!');
+    });
+  });
   // Regole video (la schedina si apre appena entri nel sito)
   var rulesModal = document.getElementById('rulesModal');
   document.getElementById('rulesBtn').addEventListener('click', function () { rulesModal.classList.remove('hidden'); });
